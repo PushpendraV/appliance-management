@@ -1,0 +1,57 @@
+<h2>Appliance List</h2>
+
+<div>
+  <label>Serial Number:</label>
+  <input [(ngModel)]="searchFilters.serialNumber" (keyup)="applyFilters()">
+  <label>Brand:</label>
+  <input [(ngModel)]="searchFilters.brand" (keyup)="applyFilters()">
+  <label>Model:</label>
+  <input [(ngModel)]="searchFilters.model" (keyup)="applyFilters()">
+  <label>Status:</label>
+  <input [(ngModel)]="searchFilters.status" (keyup)="applyFilters()">
+  <label>Date Bought:</label>
+  <input type="date" [(ngModel)]="searchFilters.dateBought" (keyup)="applyFilters()">
+
+  <button (click)="clearFilters()">Clear Filters</button>
+</div>
+
+<table>
+  <tr>
+    <th>Serial Number</th>
+    <th>Brand</th>
+    <th>Model</th>
+    <th>Status</th>
+    <th>Date Bought</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let appliance of filteredAppliances">
+    <td>{{ appliance.serialNumber }}</td>
+    <td>{{ appliance.brand }}</td>
+    <td>{{ appliance.model }}</td>
+    <td>{{ appliance.status }}</td>
+    <td>{{ appliance.dateBought }}</td>
+    <td>
+      <button (click)="editAppliance(appliance)">Edit</button>
+      <button (click)="deleteAppliance(appliance.id!)">Delete</button>
+    </td>
+  </tr>
+</table>
+
+<!-- Appliance Form Section -->
+<h2>{{ isEdit ? 'Edit Appliance' : 'Create New Appliance' }}</h2>
+<form (submit)="saveAppliance()" #applianceForm="ngForm">
+  <label>Serial Number:</label>
+  <input [(ngModel)]="appliance.serialNumber" name="serialNumber" required>
+  <label>Brand:</label>
+  <input [(ngModel)]="appliance.brand" name="brand" required>
+  <label>Model:</label>
+  <input [(ngModel)]="appliance.model" name="model" required>
+  <label>Status:</label>
+  <input [(ngModel)]="appliance.status" name="status" required>
+  <label>Date Bought:</label>
+  <input type="date" [(ngModel)]="appliance.dateBought" name="dateBought" required>
+
+  
+  <button type="submit">{{ isEdit ? 'Save' : 'Create' }}</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>
